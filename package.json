@@ -1,0 +1,28 @@
+{
+  "name": "nodejs-blog",
+  "version": "1.0.0",
+  "description": "This is an Blog application.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonasJsk/NodeJs-Blog.git"
+  },
+  "author": "Jonas Jsk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonasJsk/NodeJs-Blog/issues"
+  },
+  "homepage": "https://github.com/JonasJsk/NodeJs-Blog#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
