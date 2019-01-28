@@ -4,6 +4,8 @@ import {
     CardBody
 } from 'reactstrap';
 
+import App from '../../app';
+
 class Starterkit extends React.Component {
     render() {
         return <div>

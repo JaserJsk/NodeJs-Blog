@@ -1,7 +1,7 @@
 {
-    "name": "materialpro-react-admin",
+    "name": "nodejs-blog",
     "version": "0.1.0",
-    "homepage": "https://wrappixel.com/demos/react-admin-templates/materialpro-react-admin/horizontal",
+    "homepage": "https://github.com/JonasJsk/NodeJs-Blog#readme",
     "private": true,
     "dependencies": {
         "bootstrap": "4.1.3",
