@@ -6,19 +6,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    password: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
     },
     status: {
         type: String,
-        default: 'New kid in the block!'
+        default: 'Working hard!'
     },
-    password: {
-        type: String,
-        required: true
-    },
-
     posts: [
         {
             type: Schema.Types.ObjectId,

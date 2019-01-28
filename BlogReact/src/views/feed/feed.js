@@ -22,13 +22,16 @@ class Feed extends Component {
     };
 
     componentDidMount() {
-        fetch('URL')
-            .then(res => {
-                if (res.status !== 200) {
-                    throw new Error('Failed to fetch user status.');
-                }
-                return res.json();
-            })
+        fetch('http://localhost:8080/auth/status', {
+            headers: {
+                Authorization: 'Bearer ' + this.props.token
+            }
+        }).then(res => {
+            if (res.status !== 200) {
+                throw new Error('Failed to fetch user status.');
+            }
+            return res.json();
+        })
             .then(resData => {
                 this.setState({ status: resData.status });
             })
@@ -54,13 +57,16 @@ class Feed extends Component {
             page--;
             this.setState({ postPage: page });
         }
-        fetch('http://localhost:8080/feed/posts?page=' + page)
-            .then(res => {
-                if (res.status !== 200) {
-                    throw new Error('Failed to fetch posts.');
-                }
-                return res.json();
-            })
+        fetch('http://localhost:8080/feed/posts?page=' + page, {
+            headers: {
+                Authorization: 'Bearer ' + this.props.token
+            }
+        }).then(res => {
+            if (res.status !== 200) {
+                throw new Error('Failed to fetch posts.');
+            }
+            return res.json();
+        })
             .then(resData => {
                 this.setState({
                     posts: resData.posts.map(post => {
@@ -76,10 +82,23 @@ class Feed extends Component {
             .catch(this.catchError);
     };
 
+
+    /**
+    * *********************************************************** 
+    * Update status handler!
+    */
     statusUpdateHandler = event => {
         event.preventDefault();
-        fetch('URL')
-            .then(res => {
+        fetch('http://localhost:8080/auth/status', {
+            method: 'PATCH',
+            headers: {
+                Authorization: 'Bearer ' + this.props.token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                status: this.state.status
+            })
+        }).then(res => {
                 if (res.status !== 200 && res.status !== 201) {
                     throw new Error("Can't update status!");
                 }
@@ -118,7 +137,6 @@ class Feed extends Component {
         this.setState({
             editLoading: true
         });
-
         const formData = new FormData();
         formData.append('title', postData.title);
         formData.append('content', postData.content);
@@ -132,15 +150,18 @@ class Feed extends Component {
 
         fetch(url, {
             method: method,
-            body: formData
+            body: formData,
+            headers: {
+                Authorization: 'Bearer ' + this.props.token
+            }
+        }).then(res => {
+            if (res.status !== 200 && res.status !== 201) {
+                throw new Error('Creating or editing a post failed!');
+            }
+            return res.json();
         })
-            .then(res => {
-                if (res.status !== 200 && res.status !== 201) {
-                    throw new Error('Creating or editing a post failed!');
-                }
-                return res.json();
-            })
             .then(resData => {
+                console.log(resData);
                 const post = {
                     _id: resData.post._id,
                     title: resData.post.title,
@@ -188,7 +209,10 @@ class Feed extends Component {
     deletePostHandler = postId => {
         this.setState({ postsLoading: true });
         fetch('http://localhost:8080/feed/post/' + postId, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                Authorization: 'Bearer ' + this.props.token
+            }
         }).then(res => {
             if (res.status !== 200 && res.status !== 201) {
                 throw new Error('Deleting a post failed!');
