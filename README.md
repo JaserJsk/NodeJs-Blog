@@ -1,2 +1,2 @@
 # NodeJs-Blog
-Node.Js Blog Project Created By Jonas Jsk [Jonas.Jsk@outlook.com]
+Node.Js Blog Project Created By Jaser Jsk [Jaser.Jsk@gmail.com]
